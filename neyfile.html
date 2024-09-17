@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+
+        </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        const API_KEY = "AIzaSyANuL-qo0a2988iGxOs4SqDkh_O6nkXFkU";
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        async function generateContent(prompt) {
+            try {
+                const result = await model.generateContent(prompt);
+                return result.response.text();
+            } catch (error) {
+                console.error("Error generating content:", error);
+                return null;
+            }
+        }
+
+        async function displayContent(prompt) {
+            const got_text = await generateContent(prompt);
+            if (got_text !== null) {
+            }
+            return got_text; // Return the result so it can be used later
+        }
+
+        // Attach the function to the window object
+        window.displayContent = displayContent;
+    </script>
+
+</head>
+
+<body style="margin: 0px; margin: 0px; overflow-x: hidden; background-color: #273036;">
+    <div class="sec1">
+
+        <!-- <div class="bottomhead">
+            <div style="display: flex; align-items: center; flex-direction: column;">
+                <h1 class="balance" id="balance">10000</h1>
+                <h5 style="margin-top: -10px;">Total Balance</h5>
+            </div>
+            <div class="spent">
+                <div style="display: flex; align-items: center; flex-direction: column;">
+                    <div class="month" id="spentmont">1000</div>
+                    <h5 >Month Total Spent</h5>
+                </div>
+                <div style="display: flex; align-items: center; flex-direction: column;">
+                <div class="today" id="spentweek">100</div>
+                <h5>Week Total Spent</h5>
+            </div>
+            </div> -->
+
+
+        <div class="cardContainer3">
+            <div class="card3">
+                <!-- <p class="city">BALANCE</p> -->
+                <p class="weather" id="score">Finance Score</p>
+                <p class="city">BALANCE</p>
+
+                <svg class="weather" version="1.1" id="Layer_1" x="0px" y="0px" width="100px" height="100px"
+                    style="transform: rotateZ(200deg);" viewBox="0 0 100 100" xml:space="preserve">
+                    <image id="image0" width="200" height="200" x="0" y="0"
+                        href="https://img.icons8.com/?size=100&id=123867&format=png&color=000000">
+                    </image>
+                </svg>
+                <p class="temp" id="balance">1000000000</p>
+                <div class="minmaxContainer">
+                    <div class="min">
+                        <p class="minHeading">Spent In This Month</p>
+                        <p class="minTemp" id="spentmont">30000000</p>
+                    </div>
+                    <div class="max">
+                        <p class="maxHeading">Spent In This Week</p>
+                        <p class="maxTemp" id="spentweek">32000000000000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="sec2" id="sec2">
+        <div id="transactionContainer" class="transaction-list">
+            <h2>Transaction History</h2>
+            <ul id="transactionList">
+                <!-- Transactions will be added here -->
+            </ul>
+        </div>
+    </div>
+    <div class="btcon" id="btcon">
+        <button id="showMoreBtn" onclick="showmore()">Show More</button>
+    </div>
+
+
+    <div class="sec3">
+        <div class="card">
+            <div class="bg">
+                <h2 id="above10k" class="texts">
+                </h2>
+                <h3 class="textss">Transactions Spent Above 10000</h3>
+
+            </div>
+            <div class="blob"></div>
+        </div>
+        <div class="card">
+            <div class="bg">
+
+                <h2 id="above5k" class="texts">
+                </h2>
+                <h3 class="textss">Others Spent Total</h3>
+
+
+
+            </div>
+            <div class="blob"></div>
+        </div>
+        <div class="card">
+            <div class="bg">
+
+                <h2 id="above1k" class="texts"></h2>
+                </h2>
+                <h3 class="textss" id="test">Transactions Spent Above 1000</h3>
+
+            </div>
+            <div class="blob"></div>
+        </div>
+
+    </div>
+    <div id="sec4">
+        <canvas id="dailySpentChart"></canvas>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" style=" width: 100%; transform: rotateX(180deg);"
+    viewBox="0 0 1440 320">
+    <path fill="#9290C3" fill-opacity="1"
+        d="M0,128L0,128L288,128L288,192L576,192L576,256L864,256L864,224L1152,224L1152,160L1440,160L1440,320L1152,320L1152,320L864,320L864,320L576,320L576,320L288,320L288,320L0,320L0,320Z">
+    </path>
+</svg>
+    <div class="sec5">
+        <div class="cardd">
+            <div class="first-content">
+                <span style="font-size: 20px;">ASK From AI</span>
+            </div>
+            <div class="second-content">
+                <h1 style="height: 180px; width: 90%; font-size: 10px;padding: 10px; overflow: auto; color: #ddd;"
+                    id="aitext">hi</h1>
+                <div style="display: flex; align-items: center;justify-content: center; flex-direction: column;">
+                    <input type="text" style="width: 90%;" id="what">
+                    <div style="width: 90%;"> <button style="background-color: transparent; margin-bottom: 20px;"
+                            onclick="ask()">ASK</button></div>
+
+                </div>
+            </div>
+
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" style=" width: 100%; transform: translateY(150px);"
+            viewBox="0 0 1440 320">
+            <path fill="#9290C3" fill-opacity="1"
+                d="M0,128L0,128L288,128L288,192L576,192L576,256L864,256L864,224L1152,224L1152,160L1440,160L1440,320L1152,320L1152,320L864,320L864,320L576,320L576,320L288,320L288,320L0,320L0,320Z">
+            </path>
+        </svg>
+    <!-- </div>
+
+    <div style="background-color:#312736;height:150px; width: 100%; transform: translateY(150px);"> -->
+    </div>
+
+</body>
+
+
+<script>
+
+    // window.AppInventor.setWebViewString("hi") ;
+    rawData = window.AppInventor.getWebViewString();
+
+    function getWeekRange(date) {
+        const start = new Date(date);
+        start.setDate(start.getDate() - start.getDay() + 1); // Monday
+        start.setHours(0, 0, 0, 0); // Start of the day
+
+        const end = new Date(date);
+        end.setDate(end.getDate() + (7 - end.getDay())); // Sunday
+        end.setHours(23, 59, 59, 999); // End of the day
+
+        return { startOfWeek: start, endOfWeek: end };
+    }
+
+    // Get current date and week range
+    const today = new Date();
+    const { startOfWeek, endOfWeek } = getWeekRange(today);
+
+    // Extract the array part using a regular expression
+    let arrayMatch = rawData.match(/\[(.*?)\]/s);
+
+    // Convert the matched string into an array
+    let resultArray = arrayMatch ? JSON.parse(arrayMatch[0]) : [];
+
+    // Initialize totals
+    let totalSpent = 0;
+    let finalBalance = 0;
+    let totalSpentThisWeek = 0;
+    let firstBalanceCaptured = false;
+
+    // Extract amounts and final balance
+    resultArray.forEach(transaction => {
+        const amountMatch = transaction.match(/Rs\.(\d+(\.\d+)?) transferred/);
+        const balanceMatch = transaction.match(/Total Bal:Rs\.(\d+(\.\d+)?)CR/);
+        const dateMatch = transaction.match(/\((\d{2}-\d{2}-\d{4})/);
+
+        if (amountMatch) {
+            totalSpent += parseFloat(amountMatch[1]);
+        }
+
+        if (balanceMatch && !firstBalanceCaptured) {
+            finalBalance = parseFloat(balanceMatch[1]);
+            firstBalanceCaptured = true;
+        }
+
+        if (amountMatch && dateMatch) {
+            const amountSpent = parseFloat(amountMatch[1]);
+            const transactionDate = new Date(dateMatch[1].replace(/-/g, '/')); // Convert to a valid date format
+
+            if (transactionDate >= startOfWeek && transactionDate <= endOfWeek) {
+                totalSpentThisWeek += amountSpent;
+            }
+        }
+    });
+
+
+
+
+
+    document.getElementById("spentmont").innerHTML = totalSpent.toFixed(2);
+    document.getElementById("balance").innerHTML = finalBalance.toFixed(2);
+    document.getElementById("spentweek").innerHTML = totalSpentThisWeek.toFixed(2);
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    let newjsondata = [];
+    let actualjsondata = [];
+
+    // Extract the transaction list from rawData
+    let arrayMatch3 = rawData.match(/\[(.*?)\]/s);
+    let resultArray3 = arrayMatch3 ? JSON.parse(`[${arrayMatch3[1]}]`) : [];
+
+    const transactions = resultArray3.map((entry, index) => {
+        const amountMatch = entry.match(/Rs\.(\d+(\.\d+)?)/);
+        const dateMatch = entry.match(/\((\d{2}-\d{2}-\d{4} \d{2}:\d{2}:\d{2})\)/);
+        const creditMatch = entry.match(/Credited/);
+        const debitMatch = entry.match(/Debited/);
+        const transferredMatch = entry.match(/transferred/);
+
+        const amount = amountMatch ? parseFloat(amountMatch[1]) : 0;
+        const date = dateMatch ? dateMatch[1] : '';
+        let type = 'Unknown';
+
+        if (creditMatch) {
+            type = 'Credited';
+        } else if (debitMatch) {
+            type = 'Debited';
+        } else if (transferredMatch) {
+            type = 'Debited';
+        }
+
+        newjsondata.push({
+            index: index + 1, // Correcting the index to be 1-based
+            amount: amount,
+            date: date,
+            type: type
+        });
+
+        return {
+            amount: amount,
+            date: date,
+            type: type
+        };
+    });
+
+    console.log(newjsondata); // To check the output
+    actualjsondata = JSON.stringify(newjsondata, null, 2);
+
+    // Get the container div
+    const container = document.getElementById('transactionContainer');
+
+    // Create a list of transactions
+    const ul = document.createElement('ul');
+    transactions.forEach(transaction => {
+        const li = document.createElement('li');
+        li.className = 'transaction-item';
+
+        // Set the color based on the transaction type
+        const color = transaction.type === 'Credited' ? 'green' : 'blue';
+
+        li.style.color = color;
+        li.innerHTML = `<strong>Amount:</strong> Rs.${transaction.amount.toFixed(2)} <br> <strong>Date:</strong> ${transaction.date} <br> <strong>Type:</strong> ${transaction.type}`;
+        ul.appendChild(li);
+    });
+
+    // Append the list to the container
+    container.appendChild(ul);
+
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    // function elementmaker(html) {
+    //     const template = document.createElement("template");
+    //     template.innerHTML = html.trim();
+    //     return template.content.firstElementChild;
+    // }
+    // const myelement = elementmaker(
+    //     "<h1>Hi</h1>"
+    // );
+
+    // document.querySelector(".sec3").appendChild(myelement);
+
+    let more = 1;
+    function showmore() {
+        if (more == 1) {
+            document.getElementById("sec2").style.height = "auto";
+            document.getElementById("sec2").style.transform = "scale(0.9)";
+            document.getElementById("btcon").style.transform = "translateY(-50px)";
+            more = 0;
+        } else if (more == 0) {
+            document.getElementById("sec2").style.height = "350px";
+            document.getElementById("sec2").style.transform = "scale(1)";
+            document.getElementById("btcon").style.transform = "translateY(0px)";
+            more = 1;
+        }
+
+    }
+    let sumAbove10k = 0;
+    let sum5kTo10k = 0;
+    let sum1kTo5k = 0;
+    let sumOthers = 0;
+
+    // document.getElementById("score").innerHTML = rawData;
+
+    newjsondata.forEach(transaction => {
+        const amount = transaction.amount;
+        const type = transaction.type;
+
+        // Adjust amount based on type
+        let adjustedAmount = type === "Debited" ? -amount : amount;
+        if (type == "Debited") {
+            if (amount > 10000) {
+                sumAbove10k += adjustedAmount;
+            } else if (amount > 5000 && amount <= 10000) {
+                sum5kTo10k += adjustedAmount;
+            } else if (amount > 1000 && amount <= 5000) {
+                sum1kTo5k += adjustedAmount;
+            } else {
+                sumOthers += adjustedAmount;
+            }
+        }
+    });
+
+
+    document.getElementById("above10k").innerHTML = sumAbove10k;
+    document.getElementById("above5k").innerHTML = sum5kTo10k.toFixed(2);
+    document.getElementById("above1k").innerHTML = sum1kTo5k.toFixed(2);
+    document.getElementById("above5k").innerHTML = sumOthers.toFixed(2);
+
+
+    // window.addEventListener('load', async () => {
+    //     if (window.displayContent) {
+    //         try {
+    //             const response = await window.displayContent("Just give the number, dont give any text,giveonevalue, Sum of debits above 10000 . if none the 0 Data = Data =" + rawData);
+    //             document.getElementById("above10k").innerHTML = response;
+
+    //         } catch (error) {
+    //             console.error("Error using displayContent:", error);
+    //         }
+    //     }
+    // });
+    // window.addEventListener('load', async () => {
+    //     if (window.displayContent) {
+    //         try {
+    //             const response = await window.displayContent("Just give the number, dont give any text,give one value, Sum of debits between 5000 and 1000. if none the 0 Data =" + rawData);
+    //             document.getElementById("above5k").innerHTML = response;
+
+    //         } catch (error) {
+    //             console.error("Error using displayContent:", error);
+    //         }
+    //     }
+    // });
+    // window.addEventListener('load', async () => {
+    //     if (window.displayContent) {
+    //         try {
+    //             const response = await window.displayContent("Just give the number, dont give any text,give one value, Sum of debits between 1000 and 5000. if none the 0 Data = Data =" + rawData);
+    //             document.getElementById("above1k").innerHTML = response;
+
+    //         } catch (error) {
+    //             console.error("Error using displayContent:", error);
+    //         }
+    //     }
+    // });
+    window.addEventListener('load', async () => {
+        if (window.displayContent) {
+            try {
+                const response = await window.displayContent("Just give the score out of 100, dont give any text,give one value,According to you what should be he finance score of this person" + rawData);
+                document.getElementById("score").innerHTML = "Finance Score: " + response;
+
+            } catch (error) {
+                console.error("Error using displayContent:", error);
+            }
+        }
+    });
+
+    async function ask() {
+        if (window.displayContent) {
+            try {
+                const input = document.getElementById("what").value;
+                const response = await window.displayContent(input + " ,User data = " + rawData);
+                document.getElementById("aitext").innerHTML = response || 'Error';
+            } catch (error) {
+                console.error("Error using displayContent:", error);
+            }
+        } else {
+            console.error("displayContent function is not available.");
+        }
+    }
+    // document.addEventListener("DOMContentLoaded", async () => {
+    //     async function GPT(prompt) {
+    //         if (window.displayContent) {
+    //             try {
+    //                 const response = await window.displayContent(prompt);
+    //                 document.getElementById("aitext").innerHTML = response;
+    //             } catch (error) {
+    //                 console.error("Error using displayContent:", error);
+    //             }
+    //         } else {
+    //             console.error("displayContent function is not available.");
+    //         }
+    //     }
+
+    //     await GPT(document.getElementById("what").value + " ,User data = " + rawData);
+    // });
+
+
+
+
+
+
+    // document.addEventListener("DOMContentLoaded", async () => {
+    //         async function GPT(prompt) {
+    //             if (window.displayContent) {
+    //                 try {
+    //                     const response = await window.displayContent(prompt);
+    //                     document.getElementById("above10k").innerHTML = response;
+    //                 } catch (error) {
+    //                     console.error("Error using displayContent:", error);
+    //                 }
+    //             } else {
+    //                 console.error("displayContent function is not available.");
+    //             }
+    //         }
+
+    //         // Call the GPT function with a prompt
+    //         await GPT("hi");});
+    // Assuming newjsondata is already populated
+
+    let newjsondata2 = [{ "index": 1, "amount": 20, "date": "15-09-2024 01:53:29" }, { "index": 2, "amount": 520, "date": "14-09-2024 20:41:16" }, { "index": 3, "amount": 2, "date": "14-09-2024 16:10:59" }, { "index": 4, "amount": 2, "date": "14-09-2024 16:04:47" }, { "index": 5, "amount": 2, "date": "14-09-2024 16:02:59" }, { "index": 6, "amount": 2, "date": "14-09-2024 15:38:57" }, { "index": 7, "amount": 20, "date": "14-09-2024 13:56:02" }, { "index": 8, "amount": 20, "date": "14-09-2024 13:50:08" }, { "index": 9, "amount": 300.9, "date": "12-09-2024 16:45:45" }, { "index": 10, "amount": 347.99, "date": "11-09-2024 09:36:01" }, { "index": 11, "amount": 5, "date": "10-09-2024 21:26:50" }, { "index": 12, "amount": 1400, "date": "09-09-2024 08:30:46" }]
+    const daySpentMap = {
+        Sunday: 0,
+        Monday: 0,
+        Tuesday: 0,
+        Wednesday: 0,
+        Thursday: 0,
+        Friday: 0,
+        Saturday: 0
+    };
+
+    newjsondata2.forEach((entry) => {
+        // Extract date and parse it into a JavaScript Date object
+        const date = new Date(entry.date);
+
+        // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+        const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+        // Sum the amounts for each day of the week
+        daySpentMap[dayOfWeek] += entry.amount;
+    });
+
+    // Now daySpentMap will have the sum of spent amounts for each day of the week
+    console.log(daySpentMap);
+
+
+    // Prepare the labels (days) and data (spent amounts)
+    const labels = Object.keys(daySpentMap);
+    const data = Object.values(daySpentMap);
+
+    const ctx = document.getElementById('dailySpentChart').getContext('2d');
+    const dailySpentChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels, // Days of the week
+            datasets: [{
+                label: 'Daily Spending',
+                data: data, // Amount spent on each day
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Day of the Week'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Amount Spent (Rs.)'
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+<style>
+    body {
+        background-color: #F5F7F8;
+    }
+
+    canvas {
+        margin-top: 100px;
+        width: 100%;
+        height: 250px;
+        background-color: #ddd;
+        border-radius: 30px 30px 0px 0px;
+    }
+
+    .texts {
+        font-size: 60px;
+        text-align: center;
+    }
+
+    .textss {
+        font-size: 15px;
+        text-align: center;
+        margin-top: -30px;
+    }
+
+    .transaction-details {
+        background-color: #f1f1f1;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #555;
+        display: none;
+        /* Initially hidden */
+    }
+
+    .transaction-item {
+        cursor: pointer;
+        /* Add a pointer cursor to indicate clickable items */
+    }
+
+    .transaction-item:hover {
+        background-color: #f0f0f0;
+        /* Slight change on hover to show it's clickable */
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    #showMoreBtn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    #showMoreBtn:hover {
+        background-color: #0056b3;
+    }
+
+    .transaction-list {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-top-left-radius: 500px 50px;
+        border-top-right-radius: 500px 50px;
+        padding-top: 50px;
+        transition: all 1s ease-in-out;
+
+    }
+
+    .transaction-list h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .transaction-list ul {
+        list-style-type: none;
+        /* Remove bullets */
+        padding: 0;
+        /* Remove padding */
+        margin: 0;
+        /* Remove margin */
+    }
+
+    .transaction-item {
+        background: #f9f9f9;
+        border-left: 5px solid #007bff;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+
+    }
+
+    .transaction-item:nth-child(even) {
+        background: #e9ecef;
+    }
+
+    .transaction-item strong {
+        color: #007bff;
+    }
+
+
+
+
+
+    .spent {
+        width: auto;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .tophead {
+        height: 50px;
+        width: 100%;
+        background-color: antiquewhite;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        align-items: center;
+
+    }
+
+    .bottomhead {
+        height: 250px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sec1 {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        height: 300px;
+        animation: small linear;
+        animation-timeline: scroll();
+        transform: scale(0.9) rotateZ(0deg);
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    @keyframes small {
+        to {
+            transform: scale(0.5) rotateZ(-90deg);
+
+        }
+    }
+
+    .sec2 {
+        height: 430px;
+        width: 100%;
+        background-color: aliceblue;
+        border-top-left-radius: 500px 50px;
+        border-top-right-radius: 500px 50px;
+        overflow-y: hidden;
+        /* animation: scroll linear;
+        animation-timeline: scroll(); */
+        transition: all 1s ease-in-out !important;
+
+        transform: translateY(0px);
+    }
+
+    @keyframes scroll {
+        to {
+            transform: translateY(-100px);
+            border-bottom-left-radius: 1000px 100px;
+            border-bottom-right-radius: 1000px 100px;
+        }
+    }
+
+    .btcon {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* margin:20px 0px; */
+        transition: all 1s ease-in-out;
+        animation: scale linear;
+        animation-timeline: scroll();
+        transform: scale(1) translateY(0px);
+    }
+
+    @keyframes scale {
+        to {
+            transform: scale(1.5) translateY(-100px);
+            border-top-left-radius: 1000px 100px;
+            border-top-right-radius: 1000px 100px;
+        }
+    }
+
+    .sec3 {
+        height: auto;
+        width: 100%;
+        /* border-top-left-radius: 500px 50px;
+        border-top-right-radius: 500px 50px; */
+        transition: all 1s ease-in-out;
+        margin-top: 30px;
+    }
+
+    /* ////////////////////////////////////////// */
+    .card {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        border-radius: 14px;
+        z-index: 1111;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        transform: scale(0.9);
+    }
+
+    .bg {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        /* Make it responsive to card width */
+        height: calc(100% - 10px);
+        /* Adjust height to match the card */
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(24px);
+        border-radius: 10px;
+        overflow: hidden;
+        outline: 2px solid white;
+    }
+
+    .blob {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #ff0000;
+        opacity: 1;
+        filter: blur(12px);
+        animation: blob-bounce 5s infinite ease;
+    }
+
+    @keyframes blob-bounce {
+        0% {
+            transform: translate(-100%, -100%) translate3d(0, 0, 0);
+        }
+
+        25% {
+            transform: translate(-100%, -100%) translate3d(100%, 0, 0);
+        }
+
+        50% {
+            transform: translate(-100%, -100%) translate3d(100%, 100%, 0);
+        }
+
+        75% {
+            transform: translate(-100%, -100%) translate3d(0, 100%, 0);
+        }
+
+        100% {
+            transform: translate(-100%, -100%) translate3d(0, 0, 0);
+        }
+    }
+
+    /* ////////////////////////////////////////// */
+    /* ///////////////// */
+    /* From Uiverse.io by Tiagoadag */
+    /* From Uiverse.io by suleymanlaarabidev */
+    .cardd {
+        width: 190px;
+        height: 254px;
+        background: #535C91;
+        transition: all 0.4s;
+        border-radius: 20px;
+        /* box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705); */
+        font-size: 30px;
+        font-weight: 900;
+        transform: scale(1.5);
+    }
+
+    .cardd:hover {
+        border-radius: 5px;
+        cursor: pointer;
+        transform: scale(1.6);
+        /* box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705); */
+        background: #9290C3;
+    }
+
+    .first-content {
+        height: 100%;
+        width: 100%;
+        transition: all 0.4s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        border-radius: 15px;
+    }
+
+    .cardd:hover .first-content {
+        height: 0px;
+        opacity: 0;
+    }
+
+    .second-content {
+        height: 0%;
+        width: 100%;
+        opacity: 0;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        flex-direction: column;
+        border-radius: 15px;
+        transition: all 0.4s;
+        font-size: 0px;
+        transform: rotate(90deg) scale(-1);
+    }
+
+    .cardd:hover .second-content {
+        opacity: 1;
+        height: 100%;
+        font-size: 1.8rem;
+        transform: rotate(0deg);
+    }
+
+    /* //////////////////// */
+    .sec5 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 150px;
+    }
+
+    /*  */
+    .cardContainer3 {
+        width: fit-content;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 1s;
+        width: 95%;
+    }
+
+    .card3 {
+        position: relative;
+        width: 95%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 10px;
+        border-radius: 1000px;
+        backdrop-filter: blur(30px);
+        background-color: rgba(65, 65, 65, 0.308);
+        border: 1px solid rgba(255, 255, 255, 0.089);
+        cursor: pointer;
+
+    }
+
+    .city {
+        font-weight: 700;
+        font-size: 0.9em;
+        letter-spacing: 1.2px;
+        color: white;
+    }
+
+    .weather {
+        font-weight: 500;
+        font-size: 0.7em;
+        letter-spacing: 1.2px;
+        color: rgb(197, 197, 197);
+    }
+
+    .temp {
+        font-size: 1.8em;
+        color: white;
+    }
+
+    .minmaxContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .min,
+    .max {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0px 20px;
+        gap: 4px;
+    }
+
+    .max {
+        align-items: flex-start;
+        border-left: 2px solid white;
+    }
+
+    .maxHeading,
+    .minHeading {
+        font-size: 0.7em;
+        font-weight: 600;
+        color: white;
+    }
+
+    .maxTemp,
+    .minTemp {
+        font-size: 1em;
+        font-weight: 500;
+        color: rgb(197, 197, 197);
+    }
+
+    .cardContainer3::before {
+        width: 100px;
+        height: 100px;
+        content: "";
+        position: absolute;
+        background-color: rgb(144, 161, 255);
+        z-index: -1;
+        border-radius: 50%;
+        left: 100px;
+        top: 50px;
+        transition: all 1s;
+        animation: tarn 5s linear infinite;
+
+    }
+
+    /* .cardContainer:hover::before {
+        transform: translate(-50px, 50px);
+    } */
+
+    @keyframes tarn {
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        50% {
+            transform: translate(-50px, 50px);
+
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+
+        }
+    }
+
+    /*  */
+</style>
+
+</html>
